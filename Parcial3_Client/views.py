@@ -40,7 +40,7 @@ def autenticar_usuario(request):
 
 def cargar_principal(request):
     try:
-        usuario = request.session.get('usuario')
+        usuario = request.session.get('usuario', None)
     except:
         return render(request, INICIAR_SESION_TEMPLATE)
     if usuario is None:
@@ -51,7 +51,7 @@ def cargar_principal(request):
 
 def crear_mensaje(request):
     try:
-        usuario = request.session.get('usuario')
+        usuario = request.session.get('usuario', None)
     except:
         return render(request, INICIAR_SESION_TEMPLATE)
     if usuario is None:
@@ -60,7 +60,7 @@ def crear_mensaje(request):
 
 def enviar_mensaje(request):
     try:
-        usuario = request.session.get('usuario')
+        usuario = request.session.get('usuario', None)
     except:
         return render(request, INICIAR_SESION_TEMPLATE)
 
@@ -89,7 +89,7 @@ def enviar_mensaje(request):
 
 def responder_mensaje(request, id):
     try:
-        usuario = request.session.get('usuario')
+        usuario = request.session.get('usuario', None)
     except:
         return render(request, INICIAR_SESION_TEMPLATE)
     if usuario is None:
@@ -101,7 +101,7 @@ def responder_mensaje(request, id):
 
 def responder(request):
     try:
-        usuario = request.session.get('usuario')
+        usuario = request.session.get('usuario', None)
     except:
         return render(request, INICIAR_SESION_TEMPLATE)
     if usuario is None:
