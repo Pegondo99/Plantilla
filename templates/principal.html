@@ -106,14 +106,17 @@
             auth2.signOut().then(function () {
                 console.log('User signed out.');
                 window.location.href = "https://plantillaexameningweb.herokuapp.com";
+                //window.location.href = "http://localhost:8000";
                 $.ajax({
                     type: "POST",
                     url: '{% url 'cerrar_sesion' %}',
                     success: function (result) {
                         window.location.href = "https://plantillaexameningweb.herokuapp.com";
+                        //window.location.href = "http://localhost:8000";
                     },
                     error: function (req, status, error) {
                         window.location.href = "https://plantillaexameningweb.herokuapp.com";
+                        //window.location.href = "http://localhost:8000";
                     }
                 });
             });
