@@ -97,15 +97,19 @@ WSGI_APPLICATION = 'Parcial3.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 MONGODB_DATABASES = {
-    'default': {'name': 'django_mongoengine'}
+    'default': {
+        'name': 'examen_parcial_web',
+        "host": NOMBRE_DB,
+        "password": "raquel_portales",
+        "username": "holacaracola137",}
 }
+
 
 DATABASES = {
 }
 
-mongoengine.connect(db="examen3", host=NOMBRE_DB, username="admin", password="admin")
-
 SESSION_ENGINE = 'django_mongoengine.sessions'
+SESSION_SERIALIZER = 'django_mongoengine.sessions.BSONSerializer'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
