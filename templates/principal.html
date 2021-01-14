@@ -105,15 +105,15 @@
             var auth2 = gapi.auth2.getAuthInstance();
             auth2.signOut().then(function () {
                 console.log('User signed out.');
-                window.location.href = "https://plantillaexameningweb.herokuapp.com/";
+                window.location.href = "https://plantillaexameningweb.herokuapp.com";
                 $.ajax({
                     type: "POST",
                     url: '{% url 'cerrar_sesion' %}',
                     success: function (result) {
-                        window.location.href = "https://plantillaexameningweb.herokuapp.com/";
+                        window.location.href = "https://plantillaexameningweb.herokuapp.com";
                     },
                     error: function (req, status, error) {
-                        window.location.href = "https://plantillaexameningweb.herokuapp.com/";
+                        window.location.href = "https://plantillaexameningweb.herokuapp.com";
                     }
                 });
             });
