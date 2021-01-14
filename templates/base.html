@@ -123,10 +123,10 @@
                     type: "POST",
                     url: '{% url 'cerrar_sesion' %}',
                     success: function(result) {
-                        window.location.href="http://localhost:8000";
+                        window.location.href="https://plantillaexameningweb.herokuapp.com/";
                     },
                     error : function(req, status, error) {
-                        window.location.href="http://localhost:8000";
+                        window.location.href="https://plantillaexameningweb.herokuapp.com/";
                     }
           });
             } );
