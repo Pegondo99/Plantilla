@@ -19,7 +19,7 @@ import mongoengine as mongoengine
 
 NOMBRE_DB = 'mongodb+srv://admin:admin@cluster0.aurt8.mongodb.net/examen3?retryWrites=true&w=majority'
 BASE_DIR = Path(__file__).resolve().parent.parent
-GOOGLE_CLIENT_ID = '288628549085-lu6o0fsphukor699gdliaidan7m0a9bv.apps.googleusercontent.com'
+GOOGLE_CLIENT_ID = '250196723574-9dghhh8o144qcbsg490g7n5fvc0vtvaf.apps.googleusercontent.com'
 
 
 # Quick-start development settings - unsuitable for production
