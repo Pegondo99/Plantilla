@@ -107,7 +107,7 @@ DATABASES = {
 
 mongoengine.connect(host=NOMBRE_DB)
 
-SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
