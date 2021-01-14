@@ -21,7 +21,6 @@ NOMBRE_DB = 'mongodb+srv://admin:admin@cluster0.aurt8.mongodb.net/examen3?retryW
 BASE_DIR = Path(__file__).resolve().parent.parent
 GOOGLE_CLIENT_ID = '250196723574-jeqbmievhvgs41ppcqi0u25535c8v8qc.apps.googleusercontent.com'
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
@@ -33,7 +32,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -43,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_mongoengine',
     'Parcial3_Client',
     'Parcial3_Server',
     'cloudinary',
@@ -57,10 +56,10 @@ API_SECRET = 'tEetwn4Wkunhm4KjgCkI3y87Qo8'
 
 # Cloudinary config -> Si no va, probar sin variables de entorno.
 cloudinary.config(
-  cloud_name = CLOUD_NAME,
-  api_key = API_KEY,
-  api_secret = API_SECRET,
-  secure = True
+    cloud_name=CLOUD_NAME,
+    api_key=API_KEY,
+    api_secret=API_SECRET,
+    secure=True
 )
 
 MIDDLEWARE = [
@@ -94,20 +93,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Parcial3.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': '',
-        'NAME': '',
-    }
+MONGODB_DATABASES = {
+    'default': {'name': 'django_mongoengine'}
 }
 
-mongoengine.connect(host=NOMBRE_DB)
+DATABASES = {
+}
 
-SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+mongoengine.connect(db="examen3", host=NOMBRE_DB, username="admin", password="admin")
+
+SESSION_ENGINE = 'django_mongoengine.sessions'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -127,7 +125,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -140,7 +137,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
