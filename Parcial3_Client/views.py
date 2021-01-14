@@ -38,7 +38,10 @@ def autenticar_usuario(request):
         return render(request, INICIAR_SESION_TEMPLATE)
 
 def cargar_principal(request):
-    usuario = request.session['usuario']
+    try:
+        usuario = request.session['usuario']
+    except:
+        return render(request, INICIAR_SESION_TEMPLATE)
     if usuario is None:
         return render(request, INICIAR_SESION_TEMPLATE)
     params = {'destino': usuario['email']}
@@ -46,13 +49,20 @@ def cargar_principal(request):
     return render(request, PRINCIPAL_TEMPLATE, {'mensajes': mensajes})
 
 def crear_mensaje(request):
-    usuario = request.session['usuario']
+    try:
+        usuario = request.session['usuario']
+    except:
+        return render(request, INICIAR_SESION_TEMPLATE)
     if usuario is None:
         return render(request, INICIAR_SESION_TEMPLATE)
     return render(request, CREAR_MENSAJE_TEMPLATE, {'usuario': usuario})
 
 def enviar_mensaje(request):
-    usuario = request.session['usuario']
+    try:
+        usuario = request.session['usuario']
+    except:
+        return render(request, INICIAR_SESION_TEMPLATE)
+
     if usuario is None:
         return render(request, INICIAR_SESION_TEMPLATE)
 
@@ -77,7 +87,10 @@ def enviar_mensaje(request):
     return redirect("/principal")
 
 def responder_mensaje(request, id):
-    usuario = request.session['usuario']
+    try:
+        usuario = request.session['usuario']
+    except:
+        return render(request, INICIAR_SESION_TEMPLATE)
     if usuario is None:
         return render(request, INICIAR_SESION_TEMPLATE)
 
@@ -86,7 +99,10 @@ def responder_mensaje(request, id):
     return render(request, RESPONDER_MENSAJE_TEMPLATE, {'usuario': usuario, 'mensaje':mensaje})
 
 def responder(request):
-    usuario = request.session['usuario']
+    try:
+        usuario = request.session['usuario']
+    except:
+        return render(request, INICIAR_SESION_TEMPLATE)
     if usuario is None:
         return render(request, INICIAR_SESION_TEMPLATE)
     foto_url = "https://res.cloudinary.com/dw1sym4yt/image/upload/v1609438278/default_nxezv5.png"
