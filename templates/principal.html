@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="google-signin-client_id"
+          content="288628549085-lu6o0fsphukor699gdliaidan7m0a9bv.apps.googleusercontent.com">
+    <title>
+        Parcial
+    </title>
+    {% block stylesheet %}
+        <script src="https://kit.fontawesome.com/bde4733e75.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+              integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+              crossorigin="anonymous">
+    {% endblock %}
+</head>
+
+<body class="body">
+<div class="d-flex" id="wrapper">
+    <div id="content" class="col-lg-10">
+        <div class="container-fluid">
+            <div id="page-content-wrapper">
+                <div class="container" style="background-color: rgba(255, 255, 255, 0.7);">
+                <!---MENSAJES-->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}success
+        {% elif  message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}secondary{% endif %}" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <!---->
+                    <br>
+                    <div class="contenedor" align="center">
+                        <button id="btn_anadir" type="button" class="btn btn-outline-secondary"
+                                onclick="signOut();">Cerrar sesión
+                        </button>
+
+                        <button type="button" class="btn btn-info"
+                                onclick="window.location.href='{% url 'crear_mensaje' %}'">Crear mensaje
+                        </button>
+                    </div>
+                <br>
+                <img id="img" src="" style="max-height: 1000px; max-width: 950px"/>
+                    <h2>Mensajes</h2>
+                    <table class="default">
+                        <tr>
+                            <th>Origen</th>
+                            <th>Destino</th>
+                            <th>Contenido</th>
+                            <th>Fecha y hora</th>
+                            <th>Imagen</th>
+                            <th>Responder</th>
+                        </tr>
+                    {% for mensaje in mensajes %}
+                        <tr>
+                            <td>{{ mensaje.origen }}</td>
+                            <td>{{ mensaje.destino }}</td>
+                            <td>{{ mensaje.contenido }}</td>
+                            <td>{{ mensaje.fecha }}</td>
+                            <td>
+                                {% if mensaje.imagen is not None %}
+                                <button type="button" class="btn btn-info"
+                                onclick="cargarImagen('{{ mensaje.imagen }}');">Ver</button>
+                                {% else %}
+                                    No tiene imagen adjunta
+                                {% endif %}
+                            </td>
+                            <td><button type="button" class="btn btn-info"
+                                onclick="window.location.href='{% url 'responder_mensaje' mensaje.id %}'">Responder
+                        </button></td>
+                        </tr>
+                    {% empty %}
+                        <label>No hay mensajes</label>
+                    {% endfor %}
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+            integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
+    <script>
+        function cargarImagen(img) {
+            document.getElementById("img").src=img;
+        }
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                console.log('User signed out.');
+                window.location.href = "http://localhost:8000";
+                $.ajax({
+                    type: "POST",
+                    url: '{% url 'cerrar_sesion' %}',
+                    success: function (result) {
+                        window.location.href = "http://localhost:8000";
+                    },
+                    error: function (req, status, error) {
+                        window.location.href = "http://localhost:8000";
+                    }
+                });
+            });
+        }
+
+        function onLoad() {
+            gapi.load('auth2', function () {
+                gapi.auth2.init();
+            });
+        }
+    </script>
+{% endblock %}
+</body>
+</html>
