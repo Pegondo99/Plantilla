@@ -9,6 +9,7 @@ dj-database-url==0.5.0
 Django==3.0.5
 django-crispy-forms==1.10.0
 django-heroku==0.3.1
+django-mongoengine==0.4.4
 django-mongoengine-filter==0.3.5
 django-request==1.5.6
 django-rest-framework-mongoengine==3.4.1
