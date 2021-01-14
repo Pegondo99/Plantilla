@@ -1,1 +1,1 @@
-web: gunicorn Parcial3.wsgi
+web: gunicorn plantillaexameningweb.wsgi
