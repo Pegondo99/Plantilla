@@ -32,6 +32,16 @@ def create_mensaje(mensaje, token):
     response = generate_post(url, mensaje, token=token)
     return response
 
+def create_imagen(imagen, token):
+    url = APP_NAME+"/server/imagenes/"
+    response = generate_post(url, imagen, token=token)
+    return response
+
+def like_image(id, token):
+    url = APP_NAME+"/server/like-image/" + id
+    response = generate_post(url, {}, token=token)
+    return response
+
 def update_mensaje(id, mensaje, token):
     url = APP_NAME+"/server/mensajes/" + id + "/"
     response = generate_put(url, mensaje, token=token)
@@ -42,4 +52,23 @@ def delete_mensaje(id, token):
     response = generate_delete(url, token=token)
     return response
 
+def delete_image(id, token):
+    url = APP_NAME + "/server/imagenes/" + id + "/"
+    response = generate_delete(url, token=token)
+    return response
+
+def get_all_imagenes(token):
+    # Llamo a la API.
+    url = APP_NAME+"/server/imagenes"
+    params = {}
+    response = generate_request(url, token=token, params=params)
+    if response:
+        return response_2_dict(response)
+
+def get_image(token, id):
+    url = APP_NAME + "/server/imagenes/" + id
+    params = {}
+    response = generate_request(url, token=token, params=params)
+    if response:
+        return response_2_dict(response)
 

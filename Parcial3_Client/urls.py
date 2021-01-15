@@ -11,4 +11,8 @@ urlpatterns = [
     path('enviarMensaje/', views.enviar_mensaje, name='enviar'),
     path('responderMensaje/<str:id>', views.responder_mensaje, name='responder_mensaje'),
     path('responder/', views.responder, name='responder'),
+
+    path('subir-imagen/', views.crear_imagen, name='crear-imagen'),
+    path('dar-like/<str:id>', views.dar_like, name='dar-like'),
+    path('eliminar-imagen/<str:id>', views.eliminar_imagen, name='eliminar-imagen')
 ]

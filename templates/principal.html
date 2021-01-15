@@ -21,9 +21,9 @@
         <div class="container-fluid">
             <div id="page-content-wrapper">
                 <div class="container" style="background-color: rgba(255, 255, 255, 0.7);">
-                <!---MENSAJES-->
-    {% if messages %}
-        {% for message in messages %}
+                <!----->
+    {% if imagenes %}
+        {% for imagen in imagenes %}
             <div class="alert alert-{% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}success
         {% elif  message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}danger{% else %}secondary{% endif %}" role="alert">
                 {{ message }}
@@ -36,46 +36,42 @@
                         <button id="btn_anadir" type="button" class="btn btn-outline-secondary"
                                 onclick="signOut();">Cerrar sesión
                         </button>
-
-                        <button type="button" class="btn btn-info"
-                                onclick="window.location.href='{% url 'crear_mensaje' %}'">Crear mensaje
-                        </button>
                     </div>
                 <br>
                 <img id="img" src="" style="max-height: 1000px; max-width: 950px"/>
-                    <h2>Mensajes</h2>
+                    <h2>Imágenes</h2>
                     <table class="default">
                         <tr>
-                            <th>Origen</th>
-                            <th>Destino</th>
-                            <th>Contenido</th>
-                            <th>Fecha y hora</th>
+                            <th>Descripcion</th>
+                            <th>Likes</th>
                             <th>Imagen</th>
-                            <th>Responder</th>
                         </tr>
-                    {% for mensaje in mensajes %}
+                    {% for imagen in imagenes %}
                         <tr>
-                            <td>{{ mensaje.origen }}</td>
-                            <td>{{ mensaje.destino }}</td>
-                            <td>{{ mensaje.contenido }}</td>
-                            <td>{{ mensaje.fecha }}</td>
+                            <td>{{ imagen.descripcion }}</td>
+                            <td>{{ imagen.likes }}</td>
+                            <td><img src="{{ imagen.foto }}" alt="Girl in a jacket" width="500" height="600"></td>
+                        <script>
+                            cargarImagen({{ imagen.foto }})
+                        </script>
                             <td>
-                                {% if mensaje.imagen is not None %}
-                                <button type="button" class="btn btn-info"
-                                onclick="cargarImagen('{{ mensaje.imagen }}');">Ver</button>
-                                {% else %}
-                                    No tiene imagen adjunta
-                                {% endif %}
+                                <a href="http://localhost:8000/dar-like/{{ imagen.id }}">Like</a>
                             </td>
-                            <td><button type="button" class="btn btn-info"
-                                onclick="window.location.href='{% url 'responder_mensaje' mensaje.id %}'">Responder
-                        </button></td>
+                            <td>
+                                <a href="http://localhost:8000/eliminar-imagen/{{ imagen.id }}">Eliminar</a>
+                            </td>
                         </tr>
                     {% empty %}
-                        <label>No hay mensajes</label>
+                        <label>No hay imágenes</label>
                     {% endfor %}
                     </table>
                 </div>
+
+            <form action="{% url 'crear-imagen' %}" method="post" enctype="multipart/form-data"> {% csrf_token %}
+                <label>Descripcion</label><input type="text" name="descripcion" required><br>
+                <label>Imagen</label><input type="file" name="foto" accept="image/png, image/jpeg">
+                <button id="btn_anadir" type="submit" class="btn btn-info">Enviar</button>
+            </form>
 
             </div>
         </div>
@@ -105,18 +101,18 @@
             var auth2 = gapi.auth2.getAuthInstance();
             auth2.signOut().then(function () {
                 console.log('User signed out.');
-                window.location.href = "https://plantillaexameningweb.herokuapp.com";
-                //window.location.href = "http://localhost:8000";
+                //window.location.href = "https://plantillaexameningweb.herokuapp.com";
+                window.location.href = "http://localhost:8000";
                 $.ajax({
                     type: "POST",
                     url: '{% url 'cerrar_sesion' %}',
                     success: function (result) {
-                        window.location.href = "https://plantillaexameningweb.herokuapp.com";
-                        //window.location.href = "http://localhost:8000";
+                        //window.location.href = "https://plantillaexameningweb.herokuapp.com";
+                        window.location.href = "http://localhost:8000";
                     },
                     error: function (req, status, error) {
-                        window.location.href = "https://plantillaexameningweb.herokuapp.com";
-                        //window.location.href = "http://localhost:8000";
+                        //window.location.href = "https://plantillaexameningweb.herokuapp.com";
+                        window.location.href = "http://localhost:8000";
                     }
                 });
             });

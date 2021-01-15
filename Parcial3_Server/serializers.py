@@ -1,9 +1,9 @@
 from rest_framework_mongoengine import serializers
 
-from Parcial3_Server.models import Mensaje
+from Parcial3_Server.models import Imagen
 
 
-class MensajeSerializer(serializers.DocumentSerializer):
+class ImagenSerializer(serializers.DocumentSerializer):
     class Meta:
-        model = Mensaje
+        model = Imagen
         fields = '__all__'

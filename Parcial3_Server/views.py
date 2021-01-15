@@ -7,9 +7,9 @@ from google.oauth2 import id_token
 from rest_framework_mongoengine import generics
 
 from Parcial3.settings import GOOGLE_CLIENT_ID
-from Parcial3_Server.filters import MensajeFilter
-from Parcial3_Server.models import Mensaje
-from Parcial3_Server.serializers import MensajeSerializer
+from Parcial3_Server.filters import ImagenFilter
+from Parcial3_Server.models import Imagen
+from Parcial3_Server.serializers import ImagenSerializer
 
 
 def autenticar_usuario(request):
@@ -60,20 +60,20 @@ def monumentos_malaga(requests):
 """
 
 ##############################
-# Vistas coleccion Mensajes
+# Vistas coleccion Imágenes
 ##############################
 
-class MensajeList(generics.ListCreateAPIView):
-    queryset = Mensaje.objects.order_by('-fecha')
-    serializer_class = MensajeSerializer
+class ImagenList(generics.ListCreateAPIView):
+    queryset = Imagen.objects.order_by('-likes')
+    serializer_class = ImagenSerializer
 
-    def get(self, request, *args, **kwargs):
-        token = request.headers['Authorization']
-        print("TOKEN SERVER "+token)
-        result = cache.get(token)
-        if result is None:
-            return HttpResponse('Unauthorized', status=401)
-        return self.list(request, *args, **kwargs)
+    #def get(self, request, *args, **kwargs):
+    #    token = request.headers['Authorization']
+    #    print("TOKEN SERVER "+token)
+    #    result = cache.get(token)
+    #    if result is None:
+    #        return HttpResponse('Unauthorized', status=401)
+    #    return self.list(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         token = request.headers['Authorization']
@@ -83,13 +83,13 @@ class MensajeList(generics.ListCreateAPIView):
         return self.create(request, *args, **kwargs)
 
     def filter_queryset(self, queryset):
-        filter = MensajeFilter(self.request.query_params, queryset=queryset)
+        filter = ImagenFilter(self.request.query_params, queryset=queryset)
         return filter.qs
 
 
-class MensajeDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Mensaje.objects.all()
-    serializer_class = MensajeSerializer
+class ImagenDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Imagen.objects.all()
+    serializer_class = ImagenSerializer
 
     def get(self, request, *args, **kwargs):
         token = request.headers['Authorization']
@@ -105,10 +105,9 @@ class MensajeDetail(generics.RetrieveUpdateDestroyAPIView):
             return HttpResponse('Unauthorized', status=401)
         return self.update(request, *args, **kwargs)
 
-    def delete(self, request, *args, **kwargs):
-        token = request.headers['Authorization']
-        result = cache.get(token)
-        if result is None:
-            return HttpResponse('Unauthorized', status=401)
-        return self.destroy(request, *args, **kwargs)
-
+    #def delete(self, request, *args, **kwargs):
+    #    token = request.headers['Authorization']
+    #    result = cache.get(token)
+    #    if result is None:
+    #        return HttpResponse('Unauthorized', status=401)
+    #    return self.destroy(request, *args, **kwargs)
