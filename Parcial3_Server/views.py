@@ -67,13 +67,13 @@ class ImagenList(generics.ListCreateAPIView):
     queryset = Imagen.objects.order_by('-likes')
     serializer_class = ImagenSerializer
 
-    #def get(self, request, *args, **kwargs):
-    #    token = request.headers['Authorization']
-    #    print("TOKEN SERVER "+token)
-    #    result = cache.get(token)
-    #    if result is None:
-    #        return HttpResponse('Unauthorized', status=401)
-    #    return self.list(request, *args, **kwargs)
+    def get(self, request, *args, **kwargs):
+        token = request.headers['Authorization']
+        print("TOKEN SERVER "+token)
+        result = cache.get(token)
+        if result is None:
+            return HttpResponse('Unauthorized', status=401)
+        return self.list(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         token = request.headers['Authorization']
