@@ -168,7 +168,7 @@ def dar_like(request, id):
     image = get_image(usuario['sub'], id)
     if image is not None:
         image['likes'] = image['likes'] + 1
-        response = create_imagen(image, usuario['sub'])
+        response = update_image(id, image, usuario['sub'])
     if response:
         messages.success(request, "¡BIEN!")
     else:
@@ -193,5 +193,23 @@ def eliminar_imagen(request, id):
         messages.success(request, "¡BIEN!")
     else:
         messages.error(request, "Ha ocurrido un error.")
+
+    return redirect("/principal")
+
+
+def modificar_desc(request, id):
+    try:
+        usuario = request.session.get('usuario', None)
+    except:
+        return render(request, INICIAR_SESION_TEMPLATE)
+    if usuario is None:
+        return render(request, INICIAR_SESION_TEMPLATE)
+
+    image = get_image(usuario['sub'], id)
+    if (usuario['email'] == image['propietario']):
+        image['descripcion'] = request.POST.get('descripcion')
+        response = update_image(id, image, usuario['sub'])
+    else:
+        messages.error(request, "No puedes borrar la imagen de otro usuario")
 
     return redirect("/principal")

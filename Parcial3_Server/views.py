@@ -83,8 +83,13 @@ class ImagenList(generics.ListCreateAPIView):
         return self.create(request, *args, **kwargs)
 
     def filter_queryset(self, queryset):
-        filter = ImagenFilter(self.request.query_params, queryset=queryset)
-        return filter.qs
+        descripcion = self.request.query_params.get("descripcion", None)
+        if descripcion:
+            queryset = queryset.filter(descripcion__contains=descripcion)  # Filtra sobre arrays sin poner __in
+
+        return queryset
+
+
 
 
 class ImagenDetail(generics.RetrieveUpdateDestroyAPIView):

@@ -47,6 +47,11 @@ def update_mensaje(id, mensaje, token):
     response = generate_put(url, mensaje, token=token)
     return response
 
+def update_image(id, image, token):
+    url = APP_NAME + "/server/imagenes/" + id + "/"
+    response = generate_put(url, image, token=token)
+    return response
+
 def delete_mensaje(id, token):
     url = APP_NAME+"/server/mensajes/" + id + "/"
     response = generate_delete(url, token=token)

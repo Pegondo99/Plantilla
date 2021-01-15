@@ -60,12 +60,19 @@
                             <td>
                                 <a href="http://localhost:8000/eliminar-imagen/{{ imagen.id }}">Eliminar</a>
                             </td>
-                        </tr>
+                            <br>
+                            <form action="http://localhost:8000/modificar-desc/{{ imagen.id }}" method="post" enctype="multipart/form-data"> {% csrf_token %}
+                                <input type="text" name="descripcion">
+                                <input type="submit" value="modificar descripcion">
+                            </form>
+                            </tr>
                     {% empty %}
                         <label>No hay imágenes</label>
                     {% endfor %}
                     </table>
                 </div>
+
+
 
             <form action="{% url 'crear-imagen' %}" method="post" enctype="multipart/form-data"> {% csrf_token %}
                 <label>Descripcion</label><input type="text" name="descripcion" required><br>

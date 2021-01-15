@@ -14,5 +14,6 @@ urlpatterns = [
 
     path('subir-imagen/', views.crear_imagen, name='crear-imagen'),
     path('dar-like/<str:id>', views.dar_like, name='dar-like'),
-    path('eliminar-imagen/<str:id>', views.eliminar_imagen, name='eliminar-imagen')
+    path('eliminar-imagen/<str:id>', views.eliminar_imagen, name='eliminar-imagen'),
+    path('modificar-desc/<str:id>', views.modificar_desc, name='modificar-desc')
 ]
