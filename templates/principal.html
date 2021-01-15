@@ -55,13 +55,18 @@
                             cargarImagen({{ imagen.foto }})
                         </script>
                             <td>
-                                <a href="http://localhost:8000/dar-like/{{ imagen.id }}">Like</a>
+                                <!-- <a href="http://localhost:8000/dar-like/{{ imagen.id }}">Like</a> -->
+                                <a href="https://plantillaexameningweb.herokuapp.com/dar-like/{{ imagen.id }}">Like</a>
+
                             </td>
                             <td>
-                                <a href="http://localhost:8000/eliminar-imagen/{{ imagen.id }}">Eliminar</a>
+                                <!-- <a href="http://localhost:8000/eliminar-imagen/{{ imagen.id }}">Eliminar</a> -->
+                                <a href="https://plantillaexameningweb.herokuapp.com/eliminar-imagen/{{ imagen.id }}">Eliminar</a>
                             </td>
                             <br>
-                            <form action="http://localhost:8000/modificar-desc/{{ imagen.id }}" method="post" enctype="multipart/form-data"> {% csrf_token %}
+                            <!-- <form action="http://localhost:8000/modificar-desc/{{ imagen.id }}" method="post" enctype="multipart/form-data"> -->
+                            <form action="https://plantillaexameningweb.herokuapp.com/modificar-desc/{{ imagen.id }}" method="post" enctype="multipart/form-data"> {% csrf_token %}
+
                                 <input type="text" name="descripcion">
                                 <input type="submit" value="modificar descripcion">
                             </form>
@@ -108,18 +113,18 @@
             var auth2 = gapi.auth2.getAuthInstance();
             auth2.signOut().then(function () {
                 console.log('User signed out.');
-                //window.location.href = "https://plantillaexameningweb.herokuapp.com";
-                window.location.href = "http://localhost:8000";
+                window.location.href = "https://plantillaexameningweb.herokuapp.com";
+                //window.location.href = "http://localhost:8000";
                 $.ajax({
                     type: "POST",
                     url: '{% url 'cerrar_sesion' %}',
                     success: function (result) {
-                        //window.location.href = "https://plantillaexameningweb.herokuapp.com";
-                        window.location.href = "http://localhost:8000";
+                        window.location.href = "https://plantillaexameningweb.herokuapp.com";
+                        //window.location.href = "http://localhost:8000";
                     },
                     error: function (req, status, error) {
-                        //window.location.href = "https://plantillaexameningweb.herokuapp.com";
-                        window.location.href = "http://localhost:8000";
+                        window.location.href = "https://plantillaexameningweb.herokuapp.com";
+                        //window.location.href = "http://localhost:8000";
                     }
                 });
             });
